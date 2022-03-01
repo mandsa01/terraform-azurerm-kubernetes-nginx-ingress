@@ -21,7 +21,8 @@ resource "helm_release" "nginx" {
         service = {
           loadBalancerIP = var.load_balancer_ip
           annotations = var.ingress_type == "Internal" ? {
-            "service.beta.kubernetes.io/azure-load-balancer-internal" : "true"
+            "service.beta.kubernetes.io/azure-load-balancer-internal" : "true",
+            "service.beta.kubernetes.io/azure-allowed-service-tags": "AzureFrontDoor.Backend"
           } : {}
         }
       }
